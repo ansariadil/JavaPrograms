@@ -13,7 +13,9 @@ public interface LinkedList<T> {
 
 	public void clear();
 
-	public void remove();
+	public Node<T> removeFromStart();
+
+	public Node<T> removeFromEnd();
 
 	public void remove(int index);
 
@@ -23,6 +25,6 @@ public interface LinkedList<T> {
 
 	public void removeLastOccurance(T data);
 
-	public void removeMidOccurance(T data);
+	public void removeMidOccurance(T data, int occurance);
 
 }

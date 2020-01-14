@@ -3,18 +3,23 @@ package linkedList;
 class LinkedListImp<T> implements LinkedList<T> {
 
 	// Node Initialization
-	@SuppressWarnings("hiding")
-	class Node<T> {
-		private T data;
-		private Node<T> next;
-
-		public Node(T data) {
-			super();
-			this.data = data;
-			this.next = null;
-		}
-
-	}
+//	@SuppressWarnings("hiding")
+//	class Node<T> {
+//		private T data;
+//		private Node<T> next;
+//
+//		public Node(T data) {
+//			super();
+//			this.data = data;
+//			this.next = null;
+//		}
+//
+//		@Override
+//		public String toString() {
+//			return "Node [data=" + data + ", next=" + next + "]";
+//		}
+//
+//	}
 
 	// Node instance
 	Node<T> head;
@@ -30,8 +35,8 @@ class LinkedListImp<T> implements LinkedList<T> {
 		String toString = "[ ";
 		Node<T> currentNode = head;
 		while (currentNode != null) {
-			toString += currentNode.data + ", ";
-			currentNode = currentNode.next;
+			toString += currentNode.getData() + ", ";
+			currentNode = currentNode.getNext();
 		}
 
 		if (head != null)
@@ -48,10 +53,15 @@ class LinkedListImp<T> implements LinkedList<T> {
 		Node<T> currentNode = head;
 		while (currentNode != null) {
 			length++;
-			currentNode = currentNode.next;
+			currentNode = currentNode.getNext();
 		}
 		return length;
 
+	}
+
+	@Override
+	public void clear() {
+		head = null;
 	}
 
 	/*
@@ -71,12 +81,12 @@ class LinkedListImp<T> implements LinkedList<T> {
 			return;
 		}
 
-		toAdd.next = null;
+		toAdd.setNext(null);
 		Node<T> last = head;
-		while (last.next != null) {
-			last = last.next;
+		while (last.getNext() != null) {
+			last = last.getNext();
 		}
-		last.next = toAdd;
+		last.setNext(toAdd);
 	}
 
 	/*
@@ -99,7 +109,7 @@ class LinkedListImp<T> implements LinkedList<T> {
 
 		Node<T> temp = head;
 		head = toAddFirst;
-		head.next = temp;
+		head.setNext(temp);
 	}
 
 	/*
@@ -129,16 +139,80 @@ class LinkedListImp<T> implements LinkedList<T> {
 
 		for (int i = 0; i < index - 1; i++) {
 			current = temp;
-			temp = temp.next;
+			temp = temp.getNext();
 		}
-		current.next = toAdd;
-		toAdd.next = temp;
+		current.setNext(toAdd);
+		toAdd.setNext(temp);
+
+	}
+
+	// Remove from the beginning
+	@Override
+	public Node<T> removeFromStart() {
+		// TODO Auto-generated method stub
+		Node<T> node = head;
+		if (node != null) {
+			head = node.getNext();
+			node.setNext(null);
+		}
+		return node;
+	}
+
+	// Remove from the End
+	@Override
+	public Node<T> removeFromEnd() {
+		// TODO Auto-generated method stub
+		if (head == null)
+			return null;
+
+		Node<T> node = head;
+
+		if (node.getNext() == null) {
+			head = null;
+			return head;
+		}
+
+		Node<T> temp = null;
+		while (head.getNext() != null) {
+			temp = head;
+			head = head.getNext();
+		}
+		temp.setNext(null);
+		return head;
+	}
+
+	@Override
+	public void remove(int index) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void remove(T data) {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void clear() {
-		head = null;
+	public void removeAllOccurance(T data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeFirstOccurance(T data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeLastOccurance(T data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeMidOccurance(T data, int occurance) {
+		// TODO Auto-generated method stub
 
 	}
 
