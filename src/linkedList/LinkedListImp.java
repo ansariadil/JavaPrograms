@@ -2,25 +2,6 @@ package linkedList;
 
 class LinkedListImp<T> implements LinkedList<T> {
 
-	// Node Initialization
-//	@SuppressWarnings("hiding")
-//	class Node<T> {
-//		private T data;
-//		private Node<T> next;
-//
-//		public Node(T data) {
-//			super();
-//			this.data = data;
-//			this.next = null;
-//		}
-//
-//		@Override
-//		public String toString() {
-//			return "Node [data=" + data + ", next=" + next + "]";
-//		}
-//
-//	}
-
 	// Node instance
 	Node<T> head;
 
@@ -149,7 +130,6 @@ class LinkedListImp<T> implements LinkedList<T> {
 	// Remove from the beginning
 	@Override
 	public Node<T> removeFromStart() {
-		// TODO Auto-generated method stub
 		Node<T> node = head;
 		if (node != null) {
 			head = node.getNext();
@@ -161,59 +141,168 @@ class LinkedListImp<T> implements LinkedList<T> {
 	// Remove from the End
 	@Override
 	public Node<T> removeFromEnd() {
-		// TODO Auto-generated method stub
-		if (head == null)
+		if (head == null || head.getNext() == null)
 			return null;
 
-		Node<T> node = head;
-
-		if (node.getNext() == null) {
-			head = null;
-			return head;
+		Node<T> secondLast = head.getNext();
+		while (secondLast.getNext().getNext() != null) {
+			secondLast = secondLast.getNext();
 		}
-
-		Node<T> temp = null;
-		while (head.getNext() != null) {
-			temp = head;
-			head = head.getNext();
-		}
-		temp.setNext(null);
+		secondLast.setNext(null);
 		return head;
 	}
 
 	@Override
 	public void remove(int index) {
-		// TODO Auto-generated method stub
+		// index starts fom zero
+		int length = length();
 
-	}
+		if (length == 0)
+			throw new IllegalArgumentException("Empty");
 
-	public void remove(T data) {
-		// TODO Auto-generated method stub
+		if (index < 0 || index >= length) {
+			throw new IllegalArgumentException("Index starts from 0");
+		}
+		if (index == 0) {
+			removeFromStart();
+			return;
+		}
+
+		if (index == length - 1) {
+			removeFromEnd();
+			return;
+		}
+		Node<T> currentNode = head;
+		for (int i = 0; i < length; i++) {
+			if (i == index - 1) {
+				currentNode.setNext(currentNode.getNext().getNext());
+				return;
+			}
+			currentNode = currentNode.getNext();
+		}
 
 	}
 
 	@Override
 	public void removeAllOccurance(T data) {
-		// TODO Auto-generated method stub
+		int length = length();
+		if (length == 0)
+			throw new IllegalArgumentException("Empty List");
+
+		Node<T> currentNode = head;
+		for (int i = 0; i < length; i++) {
+			if (currentNode.getData() == data) {
+				remove(i);
+				i--;
+				length--;
+			}
+			currentNode = currentNode.getNext();
+		}
 
 	}
 
 	@Override
 	public void removeFirstOccurance(T data) {
-		// TODO Auto-generated method stub
+		int length = length();
+		if (length == 0)
+			throw new IllegalArgumentException("Empty List");
+
+		Node<T> currentNode = head;
+		for (int i = 0; i < length; i++) {
+			if (currentNode.getData() == data) {
+				remove(i);
+				return;
+			}
+			currentNode = currentNode.getNext();
+		}
 
 	}
 
 	@Override
 	public void removeLastOccurance(T data) {
-		// TODO Auto-generated method stub
+		int length = length();
+		if (length == 0)
+			throw new IllegalArgumentException("Empty List");
+
+		int lastOccurance = -1;
+		Node<T> currentNode = head;
+		for (int i = 0; i < length; i++) {
+			if (currentNode.getData() == data) {
+				lastOccurance = i;
+			}
+			currentNode = currentNode.getNext();
+		}
+		if (lastOccurance == -1)
+			throw new IllegalArgumentException(data + " Not exist in list");
+		else
+			remove(lastOccurance);
 
 	}
 
 	@Override
-	public void removeMidOccurance(T data, int occurance) {
-		// TODO Auto-generated method stub
+	public int findIndex(T data) {
+		int length = length();
+		if (length == 0)
+			throw new IllegalArgumentException("Empty List");
 
+		Node<T> currentNode = head;
+		for (int i = 0; i < length; i++) {
+			if (currentNode.getData() == data) {
+				return i;
+			}
+			currentNode = currentNode.getNext();
+		}
+		throw new IllegalArgumentException(data + " Not exist in list");
+
+	}
+
+	@Override
+	public void replace(int index, T data) {
+		int length = length();
+		if (length == 0)
+			throw new IllegalArgumentException("Empty List");
+
+		Node<T> currentNode = head;
+		for (int i = 0; i < index; i++) {
+			currentNode = currentNode.getNext();
+		}
+		currentNode.setData(data);
+	}
+
+	@Override
+	public int occurence(T data) {
+		int length = length();
+		if (length == 0)
+			throw new IllegalArgumentException("Empty List");
+
+		int occurance = 0;
+		Node<T> currentNode = head;
+		for (int i = 0; i < length; i++) {
+			if (currentNode.getData() == data)
+				occurance += 1;
+			currentNode = currentNode.getNext();
+		}
+		return occurance;
+	}
+
+	@Override
+	public void reverse() {
+		int length = length();
+		if (length == 0)
+			throw new IllegalArgumentException("Empty");
+
+		if (length == 1)
+			return;
+
+		Node<T> prevLink = null;
+        Node<T> currentLink = head;
+        Node<T> nextLink = null;
+        while (currentLink != null) {
+            nextLink = currentLink.getNext();
+            currentLink.setNext(prevLink);
+            prevLink = currentLink;
+            currentLink = nextLink;
+        }
 	}
 
 }

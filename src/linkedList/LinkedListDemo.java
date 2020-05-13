@@ -11,37 +11,19 @@ public class LinkedListDemo {
 		list.add(5);
 		list.add(8);
 		list.add(9);
+		list.add(5);
+		list.add(8);
+		list.add(2);
+		list.add(5);
+		list.add(8);
+		list.add(9);
+		list.add(5);
+		list.add(8);
+		list.add(9);
 		System.out.println(list.printList());
 
-//		LinkedListImp<String> list1 = new LinkedListImp<String>();
-//		list1.add("a");
-//		System.out.println(list1.printList());
-//
-////		 2. Add element at the beginning Operation
-//		list.addFirst(3);
-//		list.addFirst(3);
-//		list.addFirst(2);
-//		list.addFirst(1);
-//		System.out.println(list.printList());
-//
-////		3. Add element in mid
-//		list.add(8, 7);
-//		System.out.println(list.printList());
-//
-//		
-////		3. Clear list
-////		list.clear();
-////		System.out.println(list.printList());
-//		
-//		System.out.println(list.getClass().equals(LinkedListImp.class));
 
-//		4. Delete from begining
-//		list.removeFromStart();
-//		System.out.println(list.printList());
-		
-//		4. Delete from End
-//		list.removeFromEnd();
-		System.out.println(list.removeFromEnd());
+		list.reverse();
 		System.out.println(list.printList());
 	}
 }
